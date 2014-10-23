@@ -1,55 +1,51 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>--Page Title---</title>
+        <!-- metadata you need to fill in -->
 
-        <!--
-        Optional metadata, in order of most to least important:
+        <title></title>
 
-        <meta name="og:title" content="End Secret Laws.us" />
+        <meta name="og:title" content="" />
 
         <meta name="description" content="">
         <meta name="og:description" content="">
 
-        <meta property="og:image" content="http://.../something.png" />
+        <meta property="og:image" content="https://.../something.png" />
 
-        <meta name="twitter:card" content="summary_large_image" /> ..."summary" is also good ...
+        <meta name="twitter:card" content="summary_large_image" /> <!-- go through https://cards-dev.twitter.com/validator to get approval  -->
 
         <meta name="twitter:creator" content="@yourhandle" />
-        <meta name="twitter:creator:id" content="######" /> ... corresponding numeric ID ...
+        <meta name="twitter:creator:id" content="######" /> <!-- corresponding numeric ID -->
         <meta name="twitter:site" content="@yourhandle" />
-        <meta name="twitter:site:id" content="######" /> ... corresponding numeric ID ...
+        <meta name="twitter:site:id" content="######" /> <!-- corresponding numeric ID -->
 
-        -->
-
-
-        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css"> <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <style>
             body {
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
         </style>
-        <link rel="stylesheet" href="static/bootstrap/css/bootstrap-theme.min.css"> <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="static/css/main.css">
 
-        <script src="static/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <!--[if lt IE 9]>
+            <script src="static/js/html5-3.6-respond-1.1.0.min.js"></script>
+        <![endif]-->
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-    <div class="navbar navbar-inverse navbar-fixed-top">
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -57,24 +53,7 @@
           <a class="navbar-brand" href="#">Project name</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form class="navbar-form navbar-right">
+          <form class="navbar-form navbar-right" role="form">
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
             </div>
@@ -90,39 +69,42 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <h1>HTML5 Stub</h1>
+        <p>This is a template for a best-practices start to a new HTML5 website.</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Example Button &raquo;</a></p>
       </div>
     </div>
 
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+        <div class="col-md-6">
+          <h2>Modal Dialog Helpers</h2>
+          <p>Some modal dialog helper functions make showing modals with callbacks a lot easier.</p>
+          <pre>show_modal_error(title, message[, callback])</pre>
+          <p><a class="btn btn-default" href="#" role="button" onclick="return show_modal_error('Demo', 'This is the error modal.', function() { alert('Callback function executed'); })">Try error modal &raquo;</a></p>
+
+          <pre>show_modal_confirm(title, question, verb[, yes_callback[, cancel_callback]])</pre>
+          <p><a class="btn btn-default" href="#" role="button" onclick="return show_modal_confirm('Demo', 'This is the confirm modal.', 'Proceed', function() { alert('You clicked Proceed'); }, function() { alert('You clicked cancel or otherwise closed the modal.'); })">Try confirm modal &raquo;</a></p>
         </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+
+        <div class="col-md-6">
+          <h2>AJAX Loading Indicator</h2>
+          <p>Use my global function <code>ajax</code> in place of <code>$.ajax</code> to wrap the call with a loading indicator when the query might take a long time to return. It also shows a generic error message when the AJAX call fails (either with a failure status code or if an object like <code>{ 'status': 'error', 'message': 'your message here' }</code> is returned).</p>
+          <pre>ajax({ <i>usual jquery ajax options</i> })</pre>
+          <p><a class="btn btn-default" href="#" role="button" onclick="return ajax({ url: '/blah' })">Try it &raquo;</a></p>
+          <p>There's no good way to demo the loading indicator without a backend you can try it against, so this demo just shows what happens when the query has an error.</p>
        </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div>
       </div>
 
       <hr>
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <p>&copy; Company 2014</p>
       </footer>
     </div> <!-- /container -->
 
+        <!-- bootstrap-helpers: typical modal dialog -->
         <div id="global_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="errorModalTitle" aria-hidden="true">
           <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -141,6 +123,7 @@
           </div>
         </div>
     
+        <!-- bootstrap-helpers: ajax loading indicator -->
         <div id="ajax_loading_indicator" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; text-align: center; background-color: rgba(255,255,255,.75)">
           <div style="margin: 20% auto">
             <div><span class="glyphicon glyphicon-time"></span></div>
@@ -148,19 +131,22 @@
           </div>
         </div>
 
-        <script src="static/jquery-1.10.1.min.js"></script> <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> -->
-        <script src="static/bootstrap/js/bootstrap.min.js"></script> <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+        <script src="static/js/bootstrap-helpers.js"></script>
         <script src="static/js/main.js"></script>
 
         <script>
-        	var ga_account_id = 'UA-XXXXX-X';
-        	if (ga_account_id != 'UA-XXXXX-X') {
-	            var _gaq=[['_setAccount',ga_account_id],['_trackPageview']];
-	            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-	            g.src='//www.google-analytics.com/ga.js';
-	            s.parentNode.insertBefore(g,s)}(document,'script'));
-        	}
+        var ga_account_id = 'UA-XXXXX-X';
+        if (ga_account_id != 'UA-XXXXX-X') {
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create',ga_account_id);ga('send','pageview');
+        }
         </script>
     </body>
 </html>
