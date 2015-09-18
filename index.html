@@ -95,7 +95,7 @@
         <div class="col-md-6">
           <h2>AJAX Loading Indicator</h2>
           <p>Use my global function <code>ajax_with_indicator</code> in place of <code>$.ajax</code> to wrap the call with a loading indicator when the query might take a long time to return. It also shows a generic error message when the AJAX call fails (either with a failure status code or if an object like <code>{ 'status': 'error', 'message': 'your message here' }</code> is returned).</p>
-          <pre>ajax({ <i>usual jquery ajax options</i> })</pre>
+          <pre>ajax_with_indicator({ <i>usual jquery ajax options</i> })</pre>
           <p><a class="btn btn-default" href="#" role="button" onclick="return ajax_with_indicator({ url: '/blah' })">Try it &raquo;</a></p>
           <p>There's no good way to demo the loading indicator without a backend you can try it against, so this demo just shows what happens when the query has an error.</p>
        </div>
