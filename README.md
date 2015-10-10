@@ -11,10 +11,6 @@ This repository provides a best-practices start for a new HTML5 website that sup
 
 The external assets listed above are loaded remotely using `https:` URLs from CDNs using subresource integrity attributes to ensure, in supported browsers, that the CDN cannot be used as an attack vector. This method is preferable in low-security environments than hosting the static resource yourself because the user will probably already have the resources in his/her cache (and why host another file?). In a high-security environment, it may be better to host everything locally to prevent a remote injection attack if the CDN is compromised.
 
-Plus:
-
-* Helper HTML and Javascript for showing modal dialogs and an AJAX loading indicator (written by me).
-
 Browser notes:
 
 * Bootstrap only supports IE8+, but even in IE8-9 it's not perfect.
