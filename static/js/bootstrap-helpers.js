@@ -102,6 +102,8 @@ function ajax_with_indicator(options) {
     hide_loading_indicator();
     disable_enable_controls(false);
 
+    if (options.complete)
+      options.complete();
     if (data.status == "error")
       show_modal_error("Error", data.message);
     else if (old_success)
@@ -111,6 +113,9 @@ function ajax_with_indicator(options) {
   options.error = function(jqxhr) {
     hide_loading_indicator();
     disable_enable_controls(false);
+
+    if (options.complete)
+      options.complete();
 
     if (!old_error && jqxhr.status == 500 && /^text\/html/.test(jqxhr.getResponseHeader("content-type")) && /^(<!DOCTYPE[\w\W]*>)?\s*<html/.test(jqxhr.responseText)) {
       // We might get back HTML in a 500 error. Flask does this. Show the
@@ -122,8 +127,6 @@ function ajax_with_indicator(options) {
       ifrm.document.write(jqxhr.responseText);
       ifrm.document.close();
     } else if (!old_error) {
-
-    if (!old_error) {
       show_modal_error("Error", "Something went wrong, sorry.")
     } else {
       old_error(jqxhr.responseText, jqxhr);
