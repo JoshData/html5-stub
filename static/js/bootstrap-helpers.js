@@ -79,23 +79,39 @@ function show_modal_confirm(title, question, verb, yes_callback, cancel_callback
 
 var ajax_num_executing_requests = 0;
 function ajax_with_indicator(options) {
+  // Show the loading indicator after a short wait.
   setTimeout("if (ajax_num_executing_requests > 0) $('#ajax_loading_indicator').fadeIn()", 100);
   function hide_loading_indicator() {
     ajax_num_executing_requests--;
     if (ajax_num_executing_requests == 0)
       $('#ajax_loading_indicator').stop(true).hide(); // stop() prevents an ongoing fade from causing the thing to be shown again after this call
   }
+
+  // Make a function that disables/re-enables specified controls.
+  function disable_enable_controls(state) {
+    if (!options.controls) return;
+    options.controls.prop('disabled', state);
+  }
+
+  // Replace success and error functions.
+
   var old_success = options.success;
   var old_error = options.error;
+
   options.success = function(data) {
     hide_loading_indicator();
+    disable_enable_controls(false);
+
     if (data.status == "error")
       show_modal_error("Error", data.message);
     else if (old_success)
       old_success(data);
   };
+
   options.error = function(jqxhr) {
     hide_loading_indicator();
+    disable_enable_controls(false);
+
     if (!old_error && jqxhr.status == 500 && /^text\/html/.test(jqxhr.getResponseHeader("content-type")) && /^(<!DOCTYPE[\w\W]*>)?\s*<html/.test(jqxhr.responseText)) {
       // We might get back HTML in a 500 error. Flask does this. Show the
       // HTML, in an iframe.
@@ -106,13 +122,19 @@ function ajax_with_indicator(options) {
       ifrm.document.write(jqxhr.responseText);
       ifrm.document.close();
     } else if (!old_error) {
+
+    if (!old_error) {
       show_modal_error("Error", "Something went wrong, sorry.")
     } else {
       old_error(jqxhr.responseText, jqxhr);
     }
   };
+
   ajax_num_executing_requests++;
+  disable_enable_controls(true);
+
   $.ajax(options);
+
   return false; // handy when called from onclick
 }
 
