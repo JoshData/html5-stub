@@ -81,10 +81,23 @@ var ajax_num_executing_requests = 0;
 function ajax_with_indicator(options) {
   // Show the loading indicator after a short wait.
   setTimeout("if (ajax_num_executing_requests > 0) $('#ajax_loading_indicator').fadeIn()", 100);
-  function hide_loading_indicator() {
+  function hide_loading_indicator(success) {
+    // Decrement counter of number of parallel pending ajax requests.
     ajax_num_executing_requests--;
-    if (ajax_num_executing_requests == 0)
-      $('#ajax_loading_indicator').stop(true).hide(); // stop() prevents an ongoing fade from causing the thing to be shown again after this call
+
+    // Is this the last one to finish? If not, return.
+    if (ajax_num_executing_requests != 0) return;
+
+    // If this was on success and keep_indicator_forever is true, then
+    // we don't clear the loading indicator. This is useful when the
+    // success function always initiates a page reload, to prevent the
+    // flickr of the loading indicator clearing and then the page reloading.
+    if (success && options.keep_indicator_forever)
+      return;
+    
+    // stop() prevents an ongoing fade from causing the thing to be shown
+    // again after this call.
+    $('#ajax_loading_indicator').stop(true).hide();
   }
 
   // Make a function that disables/re-enables specified controls.
@@ -99,19 +112,21 @@ function ajax_with_indicator(options) {
   var old_error = options.error;
 
   options.success = function(data) {
-    hide_loading_indicator();
+    var is_error = (data.status == "error");
+
+    hide_loading_indicator(!is_error);
     disable_enable_controls(false);
 
     if (options.complete)
       options.complete();
-    if (data.status == "error")
+    if (is_error)
       show_modal_error("Error", data.message);
     else if (old_success)
       old_success(data);
   };
 
   options.error = function(jqxhr) {
-    hide_loading_indicator();
+    hide_loading_indicator(false);
     disable_enable_controls(false);
 
     if (options.complete)
