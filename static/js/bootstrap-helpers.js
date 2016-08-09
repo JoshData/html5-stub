@@ -79,8 +79,43 @@ function show_modal_confirm(title, question, verb, yes_callback, cancel_callback
 
 var ajax_num_executing_requests = 0;
 function ajax_with_indicator(options) {
-  // Show the loading indicator after a short wait.
-  setTimeout("if (ajax_num_executing_requests > 0) $('#ajax_loading_indicator').fadeIn()", 100);
+  // If options.data is an instance of FormData, then
+  // set some jQuery.ajax settings for it to work.
+  // FormData allows the caller to upload files.
+  if (options.data instanceof FormData) {
+    // GET makes no sense
+    options.type = "POST";
+
+    // pass the FormData instance directly to XHR.send()
+    // without converting to a string (which throws an
+    // exception anyway)
+    options.processData = false;
+
+    // Prevent jQuery from setting the header. It will be set by XMLHttpRequest
+    // instead. xhr.send() will ask the FormData for the content type, which
+    // can't be predicted because of the MIME boundary.
+    options.contentType = false;
+
+    // Add an upload progress handler.
+    options.xhr = function() {
+      var xhr = $.ajaxSettings.xhr();
+      xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable)
+          $('#ajax_loading_indicator div.message').text("Loading... "
+            + Math.round(e.loaded / e.total * 100) + '%');
+      };
+      return xhr;
+    }
+  }
+
+  // Show the loading indicator after a short wait if the AJAX operation
+  // is still in progress.
+  setTimeout(function() {
+    if (ajax_num_executing_requests == 0)
+      return;
+    $('#ajax_loading_indicator div.message').text("Loading..."); //reset
+    $('#ajax_loading_indicator').fadeIn()
+  }, 100);
   function hide_loading_indicator(success) {
     // Decrement counter of number of parallel pending ajax requests.
     ajax_num_executing_requests--;
