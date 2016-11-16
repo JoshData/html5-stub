@@ -6,7 +6,7 @@ var global_modal_funcs = null;
 $(function() {
   $('#global_modal').on('shown.bs.modal', function (e) {
     // set focus to first input in the global modal's body
-    var input = $('#global_modal .modal-body input');
+    var input = $('#global_modal .modal-body input, #global_modal .modal-body textarea');
     if (input.length > 0) $(input[0]).focus();  
   })  
   $('#global_modal .btn-danger').click(function() {
