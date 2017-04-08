@@ -9,7 +9,7 @@ $(function() {
     var input = $('#global_modal .modal-body input, #global_modal .modal-body textarea');
     if (input.length > 0) $(input[0]).focus();  
   })  
-  $('#global_modal .btn-danger').click(function() {
+  $('#global_modal_primary').click(function() {
     // Don't take action now. Wait for the modal to be totally hidden
     // so that we don't attempt to show another modal while this one
     // is closing.
@@ -47,7 +47,7 @@ function show_modal_error(title, message, callback) {
     $('#global_modal .modal-dialog').removeClass("modal-sm");
   }
   $('#global_modal .btn-default').show().text("OK");
-  $('#global_modal .btn-danger').hide();
+  $('#global_modal_primary').hide();
   global_modal_funcs = [callback, callback];
   global_modal_state = null;
   $('#global_modal').modal({});
@@ -66,10 +66,14 @@ function show_modal_confirm(title, question, verb, yes_callback, cancel_callback
   }
   if (typeof verb == 'string') {
     $('#global_modal .btn-default').show().text("Cancel");
-    $('#global_modal .btn-danger').show().text(verb);
+    $('#global_modal_primary').show()
+      .attr("class", "btn btn-danger")
+      .text(verb);
   } else {
     $('#global_modal .btn-default').show().text(verb[1]);
-    $('#global_modal .btn-danger').show().text(verb[0]);
+    $('#global_modal_primary').show()
+      .attr("class", "btn " + (verb[2] || "btn-danger"))
+      .text(verb[0]);
   }
   global_modal_funcs = [yes_callback, cancel_callback];
   global_modal_state = null;
