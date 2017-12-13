@@ -39,7 +39,7 @@ $(function() {
 function show_modal_error(title, message, callback) {
   $('#global_modal h4').text(title);
   $('#global_modal .modal-body').html("<p/>");
-  if (typeof question == 'string') {
+  if (typeof message == 'string') {
     $('#global_modal p').text(message);
     $('#global_modal .modal-dialog').addClass("modal-sm");
   } else {
