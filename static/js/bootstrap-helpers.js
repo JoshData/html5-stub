@@ -81,7 +81,7 @@ function show_modal_confirm(title, question, verb, yes_callback, cancel_callback
 
 function ajax_with_indicator(options) {
   // Create the modal.
-  var modal = $('<div style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100000; text-align: center; background-color: rgba(255,255,255,.75)"><div style="margin: 20% auto"><div><span class="fas fa-spinner fa-pulse"></span></div><div class="message">Loading...</div></div></div>');
+  var modal = $('<div style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100000; text-align: center; background-color: rgba(255,255,255,.75); font-size: 14px;"><div style="position: absolute; top: 45%; transform: translateY(-50%); width: 100%; text-align: center;"><div><span class="fas fa-spinner fa-pulse"></span></div><div class="message">Loading...</div></div></div>');
 
   // If options.data is an instance of FormData, then
   // set some jQuery.ajax settings for it to work.
@@ -115,7 +115,19 @@ function ajax_with_indicator(options) {
   // Show the loading indicator after a short wait if the AJAX operation
   // is still in progress.
   var timeout = setTimeout(function() {
-    $('body').append(modal);
+    // Add the modal to the page. If indicator_parent is set, put it
+    // in that node. Otherwise put it in the <body>.
+    (options.indicator_parent || $('body')).append(modal);
+    if (options.indicator_parent) {
+      // can't do fixed position and make z-index smaller since
+      // Bootstrap's fixed navbar has z-index: 1030; and we
+      // want this to be *below* that if the indicator_parent
+      // is partially obscured by the navbar.
+      modal.css({
+        'position': 'absolute',
+        'z-index': 100
+      });
+    }
     modal.fadeIn()
   }, 100);
   function hide_loading_indicator(success) {
