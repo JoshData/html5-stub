@@ -1,5 +1,3 @@
-// https://github.com/JoshData/html5-stub/blob/master/static/js/bootstrap-helpers.js
-
 var global_modal_state = null;
 var global_modal_funcs = null;
 
@@ -81,8 +79,10 @@ function show_modal_confirm(title, question, verb, yes_callback, cancel_callback
   return false; // handy when called from onclick
 }
 
-var ajax_num_executing_requests = 0;
 function ajax_with_indicator(options) {
+  // Create the modal.
+  var modal = $('<div style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100000; text-align: center; background-color: rgba(255,255,255,.75)"><div style="margin: 20% auto"><div><span class="fas fa-spinner fa-pulse"></span></div><div class="message">Loading...</div></div></div>');
+
   // If options.data is an instance of FormData, then
   // set some jQuery.ajax settings for it to work.
   // FormData allows the caller to upload files.
@@ -105,7 +105,7 @@ function ajax_with_indicator(options) {
       var xhr = $.ajaxSettings.xhr();
       xhr.upload.onprogress = function(e) {
         if (e.lengthComputable)
-          $('#ajax_loading_indicator div.message').text("Loading... "
+          modal.find('div.message').text("Loading... "
             + Math.round(e.loaded / e.total * 100) + '%');
       };
       return xhr;
@@ -114,18 +114,13 @@ function ajax_with_indicator(options) {
 
   // Show the loading indicator after a short wait if the AJAX operation
   // is still in progress.
-  setTimeout(function() {
-    if (ajax_num_executing_requests == 0)
-      return;
-    $('#ajax_loading_indicator div.message').text("Loading..."); //reset
-    $('#ajax_loading_indicator').fadeIn()
+  var timeout = setTimeout(function() {
+    $('body').append(modal);
+    modal.fadeIn()
   }, 100);
   function hide_loading_indicator(success) {
-    // Decrement counter of number of parallel pending ajax requests.
-    ajax_num_executing_requests--;
-
-    // Is this the last one to finish? If not, return.
-    if (ajax_num_executing_requests != 0) return;
+    // If we didn't show the modal yet, don't.
+    clearTimeout(timeout);
 
     // If this was on success and keep_indicator_forever is true, then
     // we don't clear the loading indicator. This is useful when the
@@ -133,10 +128,11 @@ function ajax_with_indicator(options) {
     // flickr of the loading indicator clearing and then the page reloading.
     if (success && options.keep_indicator_forever)
       return;
-    
+
+    // Remove the modal.
     // stop() prevents an ongoing fade from causing the thing to be shown
-    // again after this call.
-    $('#ajax_loading_indicator').stop(true).hide();
+    // again after this call. Although with remove() it might not be necessary.
+    modal.stop(true).remove();
   }
 
   // Make a function that disables/re-enables specified controls.
@@ -187,9 +183,10 @@ function ajax_with_indicator(options) {
     }
   };
 
-  ajax_num_executing_requests++;
+  // Disable form controls immediately.
   disable_enable_controls(true);
 
+  // Initiate request.
   $.ajax(options);
 
   return false; // handy when called from onclick
